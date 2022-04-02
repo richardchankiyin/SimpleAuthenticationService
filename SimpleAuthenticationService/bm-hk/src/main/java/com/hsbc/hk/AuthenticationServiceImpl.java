@@ -1,11 +1,17 @@
 package com.hsbc.hk;
 
-import java.time.LocalDateTime;
+
 import java.util.Optional;
 import java.util.Set;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
 
+	private TokenManager tokenManager;
+	
+	public AuthenticationServiceImpl(TokenManager tokenManager) {
+		this.tokenManager = tokenManager;
+	}
+	
 	@Override
 	public User createUser(String name, String password) {
 		// TODO Auto-generated method stub
@@ -62,11 +68,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
 	public boolean isValid(Token token) {
-		if (token != null) {
-			return !LocalDateTime.now().isBefore(token.getExpiryTime());
-		} else {
-			return false;
-		}
+		return tokenManager.isValid(token);
 	}
 
 	@Override
