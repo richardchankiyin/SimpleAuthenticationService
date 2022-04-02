@@ -5,6 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class UserImplTest {
+	
+	@Test(expected=RuntimeException.class)
+	public void testNameNull() {
+		new UserImpl(null);
+	}
 
 	@Test
 	public void testName() {

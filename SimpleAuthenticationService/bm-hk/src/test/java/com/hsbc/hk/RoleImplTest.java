@@ -5,6 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class RoleImplTest {
+	
+	@Test(expected=RuntimeException.class)
+	public void testNameNull() {
+		new RoleImpl(null);
+	}
 
 	@Test
 	public void testName() {

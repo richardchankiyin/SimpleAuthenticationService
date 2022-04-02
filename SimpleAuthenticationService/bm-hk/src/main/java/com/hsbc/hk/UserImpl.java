@@ -1,11 +1,14 @@
 package com.hsbc.hk;
 
+import java.util.Objects;
+
 public class UserImpl implements User {
 	
 	private String name;
 	private static final int HASH_PRIME = 31;
 	private static final int CLASSHASH = UserImpl.class.hashCode();
 	public UserImpl(String name) {
+		Objects.requireNonNull(name, "name cannot be null");
 		this.name = name;
 	}
 	

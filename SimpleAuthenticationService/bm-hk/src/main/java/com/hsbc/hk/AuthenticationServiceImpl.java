@@ -5,23 +5,22 @@ import java.util.Optional;
 import java.util.Set;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
-
+	private UserManager userManager;
 	private TokenManager tokenManager;
 	
-	public AuthenticationServiceImpl(TokenManager tokenManager) {
+	public AuthenticationServiceImpl(UserManager userManager, TokenManager tokenManager) {
+		this.userManager = userManager;
 		this.tokenManager = tokenManager;
 	}
 	
 	@Override
 	public User createUser(String name, String password) {
-		// TODO Auto-generated method stub
-		return null;
+		return userManager.createUser(name, password);
 	}
 
 	@Override
 	public void deleteUser(User user) {
-		// TODO Auto-generated method stub
-
+		userManager.deleteUser(user);
 	}
 
 	@Override
@@ -62,8 +61,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
 	public void invalidate(Token token) {
-		// TODO Auto-generated method stub
-
+		tokenManager.invalidate(token);
 	}
 
 	@Override
