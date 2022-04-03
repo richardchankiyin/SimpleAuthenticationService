@@ -25,8 +25,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
 	public Optional<User> findUser(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return userManager.findUser(name);
 	}
 
 	@Override

@@ -6,7 +6,7 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserManager {
-	private Map<User,String> userMap;
+	private Map<User,UserDetail> userMap;
 	
 	public UserManager() {
 		userMap = new ConcurrentHashMap<>();	
@@ -19,7 +19,7 @@ public class UserManager {
 			// user has been created
 			throw new RuntimeException("User: " + name + " was created previously");
 		} else {
-			userMap.put(u, password);
+			userMap.put(u, new UserDetail(password));
 			return u;
 		}
 	}
