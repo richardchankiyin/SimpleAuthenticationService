@@ -1,21 +1,28 @@
 package com.hsbc.hk;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class TokenManager {
-	private Set<Token> tokenSet;
+	private Map<Token, User> tokenMap;
 	private int validTimeInSec;
 	public TokenManager(int validTimeInSec) {
 		this.validTimeInSec = validTimeInSec;
-		this.tokenSet = new HashSet<>();
+		this.tokenMap = new HashMap<>();
 	}
 	
-	public Token createToken() {
+	public Token createToken(User user) {
+		Objects.requireNonNull(user, "cannot be null");
 		Token t = new TokenImpl(validTimeInSec);
-		tokenSet.add(t);
+		tokenMap.put(t, user);
 		return t;
+	}
+	
+	public User getTokenUser(Token token) {
+		Objects.requireNonNull(token, "cannot be null");
+		return tokenMap.get(token);
 	}
 	
 	/**
@@ -25,16 +32,16 @@ public class TokenManager {
 	 * @return
 	 */
 	public boolean isTokenStillHere(Token t) {
-		return tokenSet.contains(t);
+		return tokenMap.containsKey(t);
 	}
 	
 	public void invalidate(Token token) {
-		tokenSet.remove(token);
+		tokenMap.remove(token);
 	}
 	
 	public boolean isValid(Token token) {
 		if (token != null) {
-			if (tokenSet.contains(token)) {
+			if (tokenMap.containsKey(token)) {
 				boolean isExpired = !LocalDateTime.now().isBefore(token.getExpiryTime());
 				if (isExpired) {
 					// invalid the token
