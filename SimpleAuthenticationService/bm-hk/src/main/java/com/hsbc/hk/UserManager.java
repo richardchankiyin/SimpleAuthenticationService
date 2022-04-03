@@ -55,6 +55,15 @@ public class UserManager {
 		}
 	}
 	
+	public void deleteRoleFromUser(Role role, User user) {
+		if (user != null && role != null) {
+			if (userMap.containsKey(user)) {
+				UserDetail ud = userMap.get(user);
+				ud.deleteRoleFromUser(role);
+			}
+		}
+	}
+	
 	public Set<Role> getAllRoles(User user) {
 		UserDetail ud = userMap.get(user);
 		if (ud != null) {

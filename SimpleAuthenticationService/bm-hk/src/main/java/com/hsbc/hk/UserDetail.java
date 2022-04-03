@@ -30,4 +30,9 @@ public class UserDetail {
 		}
 	}
 	
+	public void deleteRoleFromUser(Role role) {
+		Objects.requireNonNull(role, "cannot be null");
+		roles.remove(role);
+	}
+	
 }

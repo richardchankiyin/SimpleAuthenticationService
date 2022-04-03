@@ -82,8 +82,17 @@ public class UserManagerTest {
 		assertTrue(result.isEmpty());
 	}
 	
+	@Test
 	public void testGetAllRoles() {
 		Set<Role> result = userMgr.getAllRoles(existingUser);
 		assertTrue(result.contains(existingRole) && result.contains(existingRole2) && result.size() == 2);
 	}
+	
+	@Test
+	public void testDeleteRoleFromUser() {
+		userMgr.deleteRoleFromUser(existingRole2, existingUser);
+		Set<Role> result = userMgr.getAllRoles(existingUser);
+		assertTrue(result.contains(existingRole) && result.size() == 1);
+	}
+	
 }

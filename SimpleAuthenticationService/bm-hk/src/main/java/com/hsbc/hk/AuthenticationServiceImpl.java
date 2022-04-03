@@ -42,14 +42,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
 	public void deleteRole(Role role) {
-		// TODO Auto-generated method stub
-		
+		Set<String> userNames = roleManager.deleteRole(role);
+		userNames.forEach(n -> {userManager.deleteRoleFromUser(role, new UserImpl(n));});
 	}
 
 	@Override
 	public void addRoleToUser(Role role, User user) {
-		// TODO Auto-generated method stub
-
+		userManager.addRoleToUser(role, user);
+		roleManager.addRoleToUser(role, user);
 	}
 
 	@Override
@@ -82,8 +82,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
 	public Set<String> getMembers(Role role) {
-		// TODO Auto-generated method stub
-		return null;
+		return roleManager.getMembers(role);
 	}
 
 }
