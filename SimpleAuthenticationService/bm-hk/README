@@ -8,8 +8,19 @@ interfaces you feel necessary, or add additional classes and interfaces, but do 
 
 CHANGE any of the provided interfaces.  Read the API comments carefully.
 
- 
+- The following classes are being created to implement provided interfaces:
+1. RoleImpl
+2. TokenImpl
+3. UserImpl
+4. AuthenticationServiceImpl   
 
+- The following classes are being created to handle data object lifecycle management:
+1. RoleManager
+2. TokenManager
+3. UserManager
+4. AuthenticationManager
+These classes share the responsibility of service providing of AuthenticationServiceImpl.
+ 
 You also MUST update the AccessPoint class - make sure the function in it returns a fully constructed instance of your
 
 service implementation.
@@ -32,6 +43,7 @@ If you use external libraries outside of the standard JDK, please mention in the
 
 goal should be to use as few external libraries as possible.
 
+- No external lib is required to run in main. For unit tests we need mockito for instance mocking
  
 
 You have 48 hrs to complete the exercise from the point it's received. Once done, pls return the submission via email
@@ -47,7 +59,7 @@ The files for the project can be found below. Save them into the appropriate dir
 Feel free to add whatever comments regarding your implementation below the line.
 
  
-
+- For authentication, user/password/salt should not be required for all of them. Also password should be stored in salted format. This is not being illustrated in this implementation
  
 
 =======================================================================================================
