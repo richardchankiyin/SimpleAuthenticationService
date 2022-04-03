@@ -41,6 +41,17 @@ public class RoleManagerTest {
 	}
 	
 	@Test
+	public void testDeleteRoleSuccess() {
+		Set<String> result = roleManager.deleteRole(existingRole);
+		assertTrue(result.contains(existingUserName) && result.contains(existingUserName2) && result.size() == 2);
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void testDeleteRoleNotExist() {
+		roleManager.deleteRole(new RoleImpl("testingRole"));
+	}
+	
+	@Test
 	public void testFindRoleSuccess() {
 		Optional<Role> result = roleManager.findRole(existingRoleName);
 		assertTrue(result.isPresent());

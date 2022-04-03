@@ -32,20 +32,18 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
 	public Role createRole(String name) {
-		// TODO Auto-generated method stub
 		return roleManager.createRole(name);
 	}
 
 	@Override
 	public Optional<Role> findRole(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		return roleManager.findRole(name);
 	}
 
 	@Override
 	public void deleteRole(Role role) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

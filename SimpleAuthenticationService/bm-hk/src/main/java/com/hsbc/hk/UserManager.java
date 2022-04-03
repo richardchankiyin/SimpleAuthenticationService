@@ -3,6 +3,7 @@ package com.hsbc.hk;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class UserManager {
@@ -24,12 +25,16 @@ public class UserManager {
 		}
 	}
 	
-	public void deleteUser(User user) {
+	public UserDetail deleteUser(User user) {
 		if (user != null) {
-			if (userMap.remove(user) == null) {
+			UserDetail ud = userMap.remove(user);
+			if (ud == null) {
 				throw new RuntimeException("User: " + user.name() + " could not be found");
 			}
-		}
+			return ud;
+		} else {
+			return null;
+		}		
 	}
 	
 	public Optional<User> findUser(String name) {
@@ -38,6 +43,24 @@ public class UserManager {
 			return Optional.of(u);
 		} else {
 			return Optional.empty();
+		}
+	}
+	
+	public void addRoleToUser(Role role, User user) {
+		if (user != null && role != null) {
+			if (userMap.containsKey(user)) {
+				UserDetail ud = userMap.get(user);
+				ud.addRoleToUser(role);
+			}
+		}
+	}
+	
+	public Set<Role> getAllRoles(User user) {
+		UserDetail ud = userMap.get(user);
+		if (ud != null) {
+			return ud.getAllRoles();
+		} else {
+			return null;
 		}
 	}
 	

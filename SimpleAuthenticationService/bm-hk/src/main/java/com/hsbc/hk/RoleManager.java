@@ -24,6 +24,18 @@ public class RoleManager {
 		}
 	}
 	
+	public Set<String> deleteRole(Role role) {
+		if (role != null) {
+			if (roleMap.containsKey(role)) {
+				return roleMap.remove(role);
+			} else {
+				throw new RuntimeException("Role: " + role.name() + " was not found");
+			}
+		} else {			
+			return null;
+		}
+	}
+	
 	public Optional<Role> findRole(String name) {
 		RoleImpl role = new RoleImpl(name);
 		if (roleMap.containsKey(role)) {
