@@ -6,10 +6,12 @@ import java.util.Set;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
 	private UserManager userManager;
+	private RoleManager roleManager;
 	private TokenManager tokenManager;
 	
-	public AuthenticationServiceImpl(UserManager userManager, TokenManager tokenManager) {
+	public AuthenticationServiceImpl(UserManager userManager, RoleManager roleManager, TokenManager tokenManager) {
 		this.userManager = userManager;
+		this.roleManager = roleManager;
 		this.tokenManager = tokenManager;
 	}
 	
@@ -31,7 +33,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	@Override
 	public Role createRole(String name) {
 		// TODO Auto-generated method stub
-		return null;
+		return roleManager.createRole(name);
 	}
 
 	@Override
