@@ -1,6 +1,7 @@
 package com.hsbc.hk;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -93,6 +94,18 @@ public class UserManagerTest {
 		userMgr.deleteRoleFromUser(existingRole2, existingUser);
 		Set<Role> result = userMgr.getAllRoles(existingUser);
 		assertTrue(result.contains(existingRole) && result.size() == 1);
+	}
+	
+	@Test
+	public void testCheckRole() {
+		assertTrue(userMgr.checkRole(existingUser, existingRole));
+		assertTrue(userMgr.checkRole(existingUser, existingRole2));
+		assertFalse(userMgr.checkRole(existingUser, new RoleImpl("notexist")));
+	}
+	
+	@Test
+	public void testGetPassword() {
+		assertEquals(existingUserPassword, userMgr.getPassword(existingUser));
 	}
 	
 }

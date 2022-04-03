@@ -73,4 +73,23 @@ public class UserManager {
 		}
 	}
 	
+	public boolean checkRole(User user, Role role) {
+		if (user != null && role != null) {
+			if (userMap.containsKey(user)) {
+				UserDetail ud = userMap.get(user);
+				return ud.checkRole(role);
+			}
+		}
+		return false;
+	}
+	
+	public String getPassword(User user) {
+		if (user != null) {
+			if (userMap.containsKey(user)) {
+				UserDetail ud = userMap.get(user);
+				return ud.getPassword();
+			}
+		}
+		return null;
+	}
 }

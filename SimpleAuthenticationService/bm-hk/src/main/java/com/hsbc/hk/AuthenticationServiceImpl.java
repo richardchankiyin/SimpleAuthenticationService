@@ -8,11 +8,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	private UserManager userManager;
 	private RoleManager roleManager;
 	private TokenManager tokenManager;
+	private AuthenticationManager authenticationManager;
 	
-	public AuthenticationServiceImpl(UserManager userManager, RoleManager roleManager, TokenManager tokenManager) {
+	public AuthenticationServiceImpl(UserManager userManager, RoleManager roleManager, TokenManager tokenManager, AuthenticationManager authenticationManager) {
 		this.userManager = userManager;
 		this.roleManager = roleManager;
 		this.tokenManager = tokenManager;
+		this.authenticationManager = authenticationManager;
 	}
 	
 	@Override
@@ -54,8 +56,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
 	public Token authenticate(String username, String password, String salt) {
-		// TODO Auto-generated method stub
-		return null;
+		return authenticationManager.authenticate(username, password, salt);
 	}
 
 	@Override
@@ -67,17 +68,24 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 	public boolean isValid(Token token) {
 		return tokenManager.isValid(token);
 	}
+	
+	protected User checkToken(Token token) {
+		if (!isValid(token)) {
+			throw new RuntimeException("token is invalid");
+		}
+		return tokenManager.getTokenUser(token);
+	}
 
 	@Override
 	public boolean checkRole(Token token, Role role) {
-		// TODO Auto-generated method stub
-		return false;
+		User user = checkToken(token);
+		return userManager.checkRole(user, role);
 	}
 
 	@Override
 	public Set<Role> getAllRoles(Token token) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = checkToken(token);
+		return userManager.getAllRoles(user);
 	}
 
 	@Override

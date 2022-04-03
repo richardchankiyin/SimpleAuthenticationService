@@ -35,4 +35,7 @@ public class UserDetail {
 		roles.remove(role);
 	}
 	
+	public boolean checkRole(Role role) {
+		return roles.contains(role);
+	}
 }
